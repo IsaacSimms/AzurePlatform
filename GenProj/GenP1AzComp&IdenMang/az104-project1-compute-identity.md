@@ -43,7 +43,8 @@ Deploy a virtual machine for a web application, secure it with RBAC, enforce a n
 2. **Entra ID** > **Groups** > Create group → add yourself as owner and member
 3. **Key Vault** > **IAM** > **Add Role Assignment** > `Key Vault Administrator` > assign to your group
    - Sign out and back in to refresh your token if permissions don't propagate
-4. **Key Vault** > **Objects** > **Keys** > **Generate/Import** > Import → upload your `.pem` key file
+4. **Key Vault** > **Objects** > **Secrets** > **Generate/Import** > Manual → paste the contents of your `.pem` key file as the secret value
+   - *Why Secrets, not Keys:* Key Vault Keys are for cryptographic operations (encrypt/decrypt/sign). Azure Key Vault does not support Ed25519 as a key type; and even for RSA, importing as a Key is not the intended path for SSH material. Secrets store arbitrary sensitive strings — a PEM file's contents is exactly that.
 
 **Assign VM-level RBAC:**
 
